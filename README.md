@@ -1,6 +1,6 @@
 # MusicCPR
 
-The music education learning management system
+The music education learning management system for support with the national core arts standards: create, perform, respond, and connect.
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
