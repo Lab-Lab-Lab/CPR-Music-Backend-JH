@@ -30,5 +30,6 @@ jobs:
         uses: gr2m/create-or-update-pull-request-action@v1
         with:
           author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          commit-message: "Formatted with Black per repo requirements"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
