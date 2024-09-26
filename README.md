@@ -158,3 +158,5 @@ Prefer to have:
 ## Media (sample audio) Files not working in deployed environment
 1. i needed to tell s3 bucket that it should make another directory public access
 
+## Devops
+1. Black Formatter GH Action on PR
