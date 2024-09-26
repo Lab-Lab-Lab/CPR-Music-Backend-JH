@@ -36,12 +36,7 @@ class ActivityViewSet(RetrieveModelMixin, ListModelMixin, GenericViewSet):
     def get_queryset(self):
         # Define a subquery to get the first assignment for each activity
         distinct_activity_assignments = (
-            Assignment.objects.filter(
-                enrollment__course__slug=self.kwargs["course_slug_slug"],
-                activity=OuterRef("id"),
-            )
-            .order_by("id", "pk")
-            .values("activity_id")[:1]
+            Assignment.objects.filter(enrollment__course__slug=self.kwargs["course_slug_slug"], activity=OuterRef("id"),).order_by("id", "pk").values("activity_id")[:1]
         )
 
         # Use the subquery to filter the main queryset
