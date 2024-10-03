@@ -25,11 +25,14 @@ jobs:
 
       - name: Run Black
         run: black .
-        
+
       - name: Push changes back to the pull request branch
         uses: gr2m/create-or-update-pull-request-action@v1
-        with:
-          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
-          commit-message: "Formatted with Black per repo requirements"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: "Formatting"
+          body: "Formatted python files with black"
+          branch: "main"
+          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          commit-message: "Formatted with Black per repo requirements"
