@@ -38,7 +38,7 @@ jobs:
       - name: Push changes back to the pull request branch
         uses: peter-evans/create-pull-request@v7
         with:
-          base: ${{github.head_ref}}
+          base: ${{ github.head_ref }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
           title: Formatting Code
