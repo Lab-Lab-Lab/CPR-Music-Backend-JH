@@ -28,9 +28,17 @@ jobs:
       - name: Run Black
         run: black .
 
+      - name: Commit changes if formatting is needed
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --exit-code || git commit -m "Auto-format code with Black"
+
       - name: Push changes back to the pull request branch
         uses: peter-evans/create-pull-request@v7
         with:
+          base: ${{github.head_ref}}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
           branch: main
