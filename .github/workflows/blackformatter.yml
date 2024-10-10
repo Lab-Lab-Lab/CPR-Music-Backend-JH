@@ -25,3 +25,6 @@ jobs:
 
       - name: Run Black
         run: black .
+
+      - name: Check for changes after formatting
+        run: git diff --exit-code
