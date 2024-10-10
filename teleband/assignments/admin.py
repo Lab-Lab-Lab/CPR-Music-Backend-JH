@@ -87,6 +87,22 @@ class AssignmentInline(admin.TabularInline):
 
 @admin.register(AssignmentGroup)
 class AssignmentGroupAdmin(VersionAdmin):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     list_display = (
         "id",
         "type",
