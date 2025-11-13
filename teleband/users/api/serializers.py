@@ -4,6 +4,8 @@ from rest_framework import serializers
 
 from teleband.instruments.api.serializers import InstrumentSerializer
 from teleband.utils.serializers import GenericNameSerializer
+from teleband.users.models import InstrumentConfig
+
 
 User = get_user_model()
 
@@ -35,3 +37,9 @@ class UserInstrumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "name", "instrument", "external_id", "grade"]
+
+
+class UserInstrumentConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstrumentConfig
+        fields = ["name", "description", "settings"]

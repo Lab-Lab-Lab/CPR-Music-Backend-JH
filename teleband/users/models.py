@@ -48,3 +48,12 @@ class Role(models.Model):
 
 class GroupInvitation(Invitation):
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
+
+
+class InstrumentConfig(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=100)
+    settings = models.JSONField(default=dict)
+
+    def __str__(self):
+        return self.name
