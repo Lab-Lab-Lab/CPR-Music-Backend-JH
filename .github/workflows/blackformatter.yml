@@ -24,7 +24,4 @@ jobs:
         run: pip install black
 
       - name: Run Black
-        run: black .
-
-      - name: Check for changes after formatting
-        run: git diff --exit-code
+        run: black . --check
