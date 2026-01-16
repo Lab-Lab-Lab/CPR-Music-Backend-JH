@@ -55,8 +55,8 @@ Remove a user/role/course enrollment
 curl -v \
 --request GET \
 --header 'Content-Type: application/json' \
--H 'Authorization: Token e9a82a7c334fbdfc52f502efebebec474708eef0' \
-https://dev-api.tele.band/api/pieces/ && echo "\n"
+-H 'Authorization: Token a2ffdae8df89b2909eb03d21cec559e95eba2e44' \
+http://127.0.0.1:8000/api/configs/ && echo "\n"
 
 
 ```

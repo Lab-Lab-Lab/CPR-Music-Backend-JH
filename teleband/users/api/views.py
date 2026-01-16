@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -21,9 +21,13 @@ from invitations.utils import get_invitation_model
 from invitations.exceptions import AlreadyAccepted, AlreadyInvited, UserRegisteredEmail
 from invitations.forms import CleanEmailMixin
 
-from .serializers import UserSerializer, UserInstrumentSerializer
+from .serializers import (
+    UserSerializer,
+    UserInstrumentSerializer,
+    UserInstrumentConfigSerializer,
+)
 from teleband.courses.models import Enrollment, Course
-
+from teleband.users.models import InstrumentConfig
 
 User = get_user_model()
 Invitation = get_invitation_model()
@@ -123,6 +127,14 @@ class ObtainDeleteAuthToken(ObtainAuthToken):
             return Response(status=status.HTTP_200_OK)
         except Token.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class UserInstrumentConfigViewSet(ModelViewSet):
+    serializer_class = UserInstrumentConfigSerializer
+    queryset = InstrumentConfig.objects.all()
+
+    def get_queryset(self):
+        return self.request.user.instrumentconfig_set.all()
 
 
 obtain_delete_auth_token = ObtainDeleteAuthToken.as_view()

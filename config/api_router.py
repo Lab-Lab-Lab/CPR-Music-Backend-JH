@@ -19,6 +19,7 @@ from teleband.submissions.api.views import (
 )
 from teleband.musics.api.views import PieceViewSet
 from teleband.instruments.api.views import InstrumentViewSet
+from teleband.users.api.views import UserInstrumentConfigViewSet
 
 if settings.DEBUG:
     router = DefaultRouter()
@@ -33,6 +34,7 @@ router.register("courses", CourseViewSet)
 router.register("pieces", PieceViewSet)
 router.register("piece-plans", PiecePlanViewSet)
 router.register("instruments", InstrumentViewSet)
+router.register("configs", UserInstrumentConfigViewSet)
 
 courses_router = nested_cls(router, "courses", lookup="course_slug")
 courses_router.register("assignments", AssignmentViewSet)  # option basename omitted
@@ -48,6 +50,9 @@ assignments_router.register("submissions", SubmissionViewSet)
 
 attachments_router = nested_cls(assignments_router, "submissions", lookup="submission")
 attachments_router.register("attachments", AttachmentViewSet)
+
+# config_router = nested_cls(router, "users", lookup="user_username")
+# config_router.register("configs", UserInstrumentConfigViewSet)
 
 app_name = "api"
 urlpatterns = router.urls

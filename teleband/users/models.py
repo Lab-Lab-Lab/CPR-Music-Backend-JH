@@ -54,6 +54,7 @@ class InstrumentConfig(models.Model):
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=100)
     settings = models.JSONField(default=dict)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
