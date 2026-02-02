@@ -136,5 +136,9 @@ class UserInstrumentConfigViewSet(ModelViewSet):
     def get_queryset(self):
         return self.request.user.instrumentconfig_set.all()
 
+    # this helped to map the configs to the user creating them
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
 
 obtain_delete_auth_token = ObtainDeleteAuthToken.as_view()
