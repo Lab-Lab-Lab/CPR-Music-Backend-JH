@@ -24,3 +24,4 @@ class EnrollmentAdmin(VersionAdmin):
     list_display = ("id", "user", "course", "instrument", "role")
     list_filter = ("course", "instrument", "role")
     search_fields = ("user__username", "course__name")
+    save_as = True

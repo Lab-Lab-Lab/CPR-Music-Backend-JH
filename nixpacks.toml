@@ -1,0 +1,3 @@
+# Use shell script for start command
+[start]
+cmd = "bash start.sh"
