@@ -30,6 +30,8 @@ from .serializers import (
 from teleband.courses.models import Enrollment, Course
 from teleband.users.models import InstrumentConfig
 
+from django.db.models import Q
+
 User = get_user_model()
 Invitation = get_invitation_model()
 
@@ -149,7 +151,8 @@ class UserInstrumentConfigViewSet(ModelViewSet):
     queryset = InstrumentConfig.objects.all()
 
     def get_queryset(self):
-        return self.request.user.instrumentconfig_set.all()
+        # this returns all configs for the user and the default confgis (those with user=None)
+        return InstrumentConfig.objects.filter(Q(user=self.request.user) | Q(user=None))
 
     # this helped to map the configs to the user creating them
     def perform_create(self, serializer):
