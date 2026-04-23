@@ -1,4 +1,4 @@
-# TeleBand
+# MusicCPR
 
 The music education learning management system
 

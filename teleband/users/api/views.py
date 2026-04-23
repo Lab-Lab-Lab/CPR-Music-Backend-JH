@@ -13,7 +13,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -22,9 +22,15 @@ from invitations.utils import get_invitation_model
 from invitations.exceptions import AlreadyAccepted, AlreadyInvited, UserRegisteredEmail
 from invitations.forms import CleanEmailMixin
 
-from .serializers import UserSerializer, UserInstrumentSerializer
+from .serializers import (
+    UserSerializer,
+    UserInstrumentSerializer,
+    UserInstrumentConfigSerializer,
+)
 from teleband.courses.models import Enrollment, Course
+from teleband.users.models import InstrumentConfig
 
+from django.db.models import Q
 
 User = get_user_model()
 Invitation = get_invitation_model()
@@ -138,6 +144,19 @@ class ObtainDeleteAuthToken(ObtainAuthToken):
 
         # Return the response with the token and any additional data
         return response
+
+
+class UserInstrumentConfigViewSet(ModelViewSet):
+    serializer_class = UserInstrumentConfigSerializer
+    queryset = InstrumentConfig.objects.all()
+
+    def get_queryset(self):
+        # this returns all configs for the user and the default confgis (those with user=None)
+        return InstrumentConfig.objects.filter(Q(user=self.request.user) | Q(user=None))
+
+    # this helped to map the configs to the user creating them
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
 
 
 obtain_delete_auth_token = ObtainDeleteAuthToken.as_view()

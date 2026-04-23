@@ -48,3 +48,14 @@ class Role(models.Model):
 
 class GroupInvitation(Invitation):
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
+
+
+class InstrumentConfig(models.Model):
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=100, null=True, blank=True)
+    settings = models.JSONField(default=dict)
+    file = models.FileField(upload_to="instrument_config_samples/", null=True, blank=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
