@@ -150,6 +150,7 @@ class UserInstrumentConfigViewSet(ModelViewSet):
     serializer_class = UserInstrumentConfigSerializer
     queryset = InstrumentConfig.objects.all()
 
+
     def get_queryset(self):
         # this returns all configs for the user and the default confgis (those with user=None)
         return InstrumentConfig.objects.filter(Q(user=self.request.user) | Q(user=None))
