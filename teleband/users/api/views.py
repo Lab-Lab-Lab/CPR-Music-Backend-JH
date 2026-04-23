@@ -27,10 +27,13 @@ from .serializers import (
     UserInstrumentSerializer,
     UserInstrumentConfigSerializer,
 )
+from .serializers import (
+    UserSerializer,
+    UserInstrumentSerializer,
+    UserInstrumentConfigSerializer,
+)
 from teleband.courses.models import Enrollment, Course
 from teleband.users.models import InstrumentConfig
-
-from django.db.models import Q
 
 User = get_user_model()
 Invitation = get_invitation_model()
@@ -152,12 +155,7 @@ class UserInstrumentConfigViewSet(ModelViewSet):
 
 
     def get_queryset(self):
-        # this returns all configs for the user and the default confgis (those with user=None)
-        return InstrumentConfig.objects.filter(Q(user=self.request.user) | Q(user=None))
-
-    # this helped to map the configs to the user creating them
-    def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+        return self.request.user.instrumentconfig_set.all()
 
 
 obtain_delete_auth_token = ObtainDeleteAuthToken.as_view()
